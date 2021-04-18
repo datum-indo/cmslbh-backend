@@ -1,0 +1,15 @@
+export { RenamedcaseActivitiesArgs } from "./RenamedcaseActivitiesArgs";
+export { RenamedcaseCategoriesArgs } from "./RenamedcaseCategoriesArgs";
+export { RenamedcaseClassificationsArgs } from "./RenamedcaseClassificationsArgs";
+export { RenamedcaseConsultationsArgs } from "./RenamedcaseConsultationsArgs";
+export { RenamedcaseDocumentsArgs } from "./RenamedcaseDocumentsArgs";
+export { RenamedcaseIncidentLocationsArgs } from "./RenamedcaseIncidentLocationsArgs";
+export { RenamedcaseIssuesArgs } from "./RenamedcaseIssuesArgs";
+export { RenamedcaseKorbansArgs } from "./RenamedcaseKorbansArgs";
+export { RenamedcaseLogRequestsArgs } from "./RenamedcaseLogRequestsArgs";
+export { RenamedcaseModusesArgs } from "./RenamedcaseModusesArgs";
+export { RenamedcasePelakusArgs } from "./RenamedcasePelakusArgs";
+export { RenamedcaseReferralsArgs } from "./RenamedcaseReferralsArgs";
+export { RenamedcaseTransferreferralsArgs } from "./RenamedcaseTransferreferralsArgs";
+export { RenamedcaseViolatedrightsArgs } from "./RenamedcaseViolatedrightsArgs";
+export { RenamedcaseViolenceMethodsArgs } from "./RenamedcaseViolenceMethodsArgs";

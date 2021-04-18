@@ -1,0 +1,10 @@
+export { AggregateCaseTransferReferralArgs } from "./AggregateCaseTransferReferralArgs";
+export { CreateCaseTransferReferralArgs } from "./CreateCaseTransferReferralArgs";
+export { DeleteCaseTransferReferralArgs } from "./DeleteCaseTransferReferralArgs";
+export { DeleteManyCaseTransferReferralArgs } from "./DeleteManyCaseTransferReferralArgs";
+export { FindFirstCaseTransferReferralArgs } from "./FindFirstCaseTransferReferralArgs";
+export { FindManyCaseTransferReferralArgs } from "./FindManyCaseTransferReferralArgs";
+export { FindUniqueCaseTransferReferralArgs } from "./FindUniqueCaseTransferReferralArgs";
+export { UpdateCaseTransferReferralArgs } from "./UpdateCaseTransferReferralArgs";
+export { UpdateManyCaseTransferReferralArgs } from "./UpdateManyCaseTransferReferralArgs";
+export { UpsertCaseTransferReferralArgs } from "./UpsertCaseTransferReferralArgs";

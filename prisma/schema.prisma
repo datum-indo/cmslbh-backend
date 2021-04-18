@@ -1,0 +1,652 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../prisma/generated/type-graphql"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Application {
+  id                     Int          @id @default(autoincrement())
+  createdAt              DateTime     @default(now()) @map("created_at") @db.DateTime(0)
+  createdBy              String?      @map("created_by") @db.MediumText
+  dudukPerara            String?      @map("duduk_perara") @db.MediumText
+  infoLbh                String?      @map("info_lbh") @db.MediumText
+  jumlahPenerimaManfaat  Int?         @map("jumlah_penerima_manfaat")
+  konfirmasiData         Boolean      @map("konfirmasi_data")
+  noReg                  String?      @map("no_reg") @db.MediumText
+  pernahKlien            String?      @map("pernah_klien") @db.MediumText
+  pernahPpLain           String?      @map("pernah_pp_lain") @db.MediumText
+  ppLain                 String?      @map("pp_lain") @db.MediumText
+  regDate                DateTime?    @map("reg_date")
+  relasiWakilClient      String?      @map("relasi_wakil_client") @db.MediumText
+  setujuAdvokasi         Boolean      @map("setuju_advokasi")
+  statusPerwakilan       String?      @map("status_perwakilan") @db.MediumText
+  updatedAt              DateTime     @updatedAt @map("updated_at")
+  updatedBy              String?      @map("updated_by") @db.MediumText
+  waktuPernahKlien       String?      @map("waktu_pernah_klien") @db.MediumText
+  whyLbh                 String?      @map("why_lbh") @db.MediumText
+  tahap                  String?      @db.MediumText
+  status                 String?      @db.MediumText
+  wakil_Id                Int?         @map("wakil_id")
+  case_applicationTocase   Int? @map("case") @unique
+  case Renamedcase? @relation("applicationTocase", fields: [case_applicationTocase], references: [id])
+  wakilId                 Person?      @relation(fields: [wakil_Id], references: [id])
+  clients                 Client[]
+  LogRequest             LogRequest[]
+
+  @@map("application")
+}
+
+// / This model has been renamed to 'Renamedcase' during introspection, because the original name 'case' is reserved.
+
+model Renamedcase {
+  id                   Int                    @id @default(autoincrement())
+  applicationId       Int? @map("application_id")
+  caseClosed          Boolean @map("case_closed")
+  caseClosedJenis    String?          @map("case_closed_jenis")      @db.MediumText
+  createdAt           DateTime  @default(now()) @map("created_at") @db.DateTime(0)
+  createdBy           String?    @map("created_by")            @db.MediumText
+  hakTerlanggar       String?    @map("hak_terlanggar")            @db.MediumText
+  issue                String?                @db.MediumText
+  judulKasus          String?        @map("judul_kasus")          @db.MediumText
+  klasifikasiDok      String?         @map("klasifikasi_dok")           @db.MediumText
+  kronologiKasus      String?       @map("kronologi_kasus")               @db.MediumText
+  lockDitolak         Boolean  @map("lock_ditolak") 
+  statusPendampingan  String?       @map("status_pendampingan")           @db.MediumText
+  targetAdvokasi      String?      @map("target_advokasi")           @db.MediumText
+  unlockPk            Boolean   @map("unlock_pk")  
+  unlockTransfer      Boolean  @map("unlock_transfer") 
+  pelakuKorbanRelasi  String?  @map("pelaku_korban_relasi")
+  updatedAt           DateTime  @updatedAt @map("updated_at") 
+  updatedBy           String?    @map("updated_by")            @db.MediumText
+  case_progresses           Int?   @map("progresses")                @unique
+  case_transfer             Int?     @map("transfer")              @unique
+  case_pk Int? @map("pk")                            @unique
+  pk               CasePk?                @relation("caseTocase_pk", fields: [case_pk], references: [id])
+  progresses         CaseProgress?          @relation("caseTocase_progress", fields: [case_progresses], references: [id])
+  transfer         CaseTransfer?          @relation("CaseTransferTocase", fields: [case_transfer], references: [id])
+  application          Application?          @relation("applicationTocase")
+  referrals         CaseReferral[]         @relation("CaseReferralTocase")
+  classifications   CaseClassification[]   @relation("caseTocase_classification")
+  consultations     CaseConsultation[]     @relation("caseTocase_consultation")
+  documents         CaseDocument[]         @relation("caseTocase_document")
+  issues            CaseIssue[]            @relation("caseTocase_issue")
+  korbans           CaseKorban[]           @relation("caseTocase_korban")
+  pelakus           CasePelaku[]           @relation("caseTocase_pelaku")
+  activities CaseProgressActivity[] @relation("caseTocase_progress_activity")
+  transferreferrals CaseTransferReferral[] @relation("caseTocase_transfer_referral")
+  violatedrights    CaseViolatedRight[]    @relation("caseTocase_violated_rights")
+  logRequests           LogRequest[]           @relation("caseTolog_request")
+  categories        CaseCategory[]            @relation("caseTocase_category")
+ incidentLocations        CaseIncidentLocation[]  @relation("caseTocase_incident_location")
+moduses        CaseModus[]  @relation("caseTocase_modus")
+violenceMethods CaseViolenceMethod[] @relation("caseTocase_violence_method")
+
+  @@map("case")
+}
+
+model CaseCategory {
+  id     Int          @id @default(autoincrement())
+  kodeMt String?      @map("kode_mt") @db.MediumText
+  case_id Int?         @map("case_id")
+  caseId   Renamedcase? @relation("caseTocase_category", fields: [case_id], references: [id])
+
+  @@map("case_category")
+}
+
+model CaseIncidentLocation {
+  id     Int          @id @default(autoincrement())
+  kodeMt String?      @map("kode_mt") @db.MediumText
+  case_id Int?         @map("case_id")
+  caseId   Renamedcase? @relation("caseTocase_incident_location", fields: [case_id], references: [id])
+
+  @@map("case_incident_location")
+}
+
+model CaseModus {
+  id     Int          @id @default(autoincrement())
+  kodeMt String?      @map("kode_mt") @db.MediumText
+  case_id Int?         @map("case_id")
+  caseId   Renamedcase? @relation("caseTocase_modus", fields: [case_id], references: [id])
+
+  @@map("case_modus")
+}
+
+model CaseViolenceMethod {
+  id     Int          @id @default(autoincrement())
+  kodeMt String?      @map("kode_mt") @db.MediumText
+  case_id Int?         @map("case_id")
+  caseId   Renamedcase? @relation("caseTocase_violence_method", fields: [case_id], references: [id])
+
+  @@map("case_violence_method")
+}
+
+
+model CaseReferral {
+  id          Int          @id @default(autoincrement())
+  tglTransfer DateTime?
+  catatan     String?      @db.MediumText
+  createdBy   String?      @db.MediumText
+  updatedBy   String?      @db.MediumText
+  caseId      Int?
+  networkId   Int?         @map("network")
+  clientId    Int?         @map("client")
+  case        Renamedcase? @relation("CaseReferralTocase", fields: [caseId], references: [id])
+  client      Person?      @relation(fields: [clientId], references: [id])
+  network     Network?     @relation(fields: [networkId], references: [id])
+
+  @@index([caseId], name: "caseId")
+  @@index([clientId], name: "client")
+  @@index([networkId], name: "network")
+}
+
+model CaseTransfer {
+  id          Int          @id @default(autoincrement())
+  tglTransfer DateTime?
+  catatan     String?      @db.MediumText
+  createdBy   String?      @db.MediumText
+  updatedBy   String?      @db.MediumText
+  networkId   Int?         @map("network")
+  network     Network?     @relation(fields: [networkId], references: [id])
+  case        Renamedcase? @relation("CaseTransferTocase")
+
+  @@index([networkId], name: "network")
+}
+
+model CaseClassification {
+  id     Int          @id @default(autoincrement())
+  kodeMt String?      @map("kode_mt") @db.MediumText
+  case_id Int?         @map("case_id")
+  caseId   Renamedcase? @relation("caseTocase_classification", fields: [case_id], references: [id])
+
+  @@map("case_classification")
+}
+
+model CaseConsultation {
+  id                  Int                   @id @default(autoincrement())
+  appKonsul           String?               @map("app_konsul") @db.MediumText
+  createdAt           DateTime              @default(now()) @map("created_at") @db.DateTime(0)
+  createdBy           String?               @map("created_by") @db.MediumText
+  isiKonsul           String?               @map("isi_konsul") @db.MediumText
+  harapan             String?               @db.MediumText
+  saranHukum          String?               @db.MediumText
+  rencanaTindakLanjut String?               @db.MediumText
+  judulAktifitas      String?               @map("judul_aktifitas") @db.MediumText
+  ppKonsul            String?               @map("pp_konsul") @db.MediumText
+  tglKonsul           DateTime?             @map("tgl_konsul")
+  updatedAt           DateTime              @updatedAt @map("updated_at")
+  updatedBy           String?               @map("updated_by") @db.MediumText
+  case_id              Int?                  @map("case_id")
+  caseId                Renamedcase?          @relation("caseTocase_consultation", fields: [case_id], references: [id])
+  apps CaseConsultationApp[]
+
+  @@map("case_consultation")
+}
+
+model CaseConsultationApp {
+  id                 Int               @id @default(autoincrement())
+  app_consultation    Int?              @map("app_consultation")
+  case_consultation_id Int?              @map("case_consultation_id")
+  keterangan         String?           @db.MediumText
+  appConsultation               User?             @relation(fields: [app_consultation], references: [id])
+  caseConsultationId   CaseConsultation? @relation(fields: [case_consultation_id], references: [id])
+
+  @@map("case_consultation_app")
+}
+
+model CaseDocument {
+  id           Int          @id @default(autoincrement())
+  createdAt    DateTime     @default(now()) @map("created_at") @db.DateTime(0)
+  createdBy    String?      @map("created_by") @db.MediumText
+  jenisDokumen String?      @map("jenis_dokumen") @db.MediumText
+  judulDokumen String?      @map("judul_dokumen") @db.MediumText
+  keterangan   String?      @db.MediumText
+  link         String?      @db.MediumText
+  filename     String?      @db.MediumText
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+  updatedBy    String?      @map("updated_by") @db.MediumText
+  caseId       Int?         @map("case_id")
+  case         Renamedcase? @relation("caseTocase_document", fields: [caseId], references: [id])
+
+  @@index([caseId], name: "case_id")
+  @@map("case_document")
+}
+
+model CaseIssue {
+  id     Int          @id @default(autoincrement())
+  kodeMt String?      @map("kode_mt") @db.MediumText
+  case_id Int?         @map("case_id")
+  caseId   Renamedcase? @relation("caseTocase_issue", fields: [case_id], references: [id])
+
+  @@map("case_issue")
+}
+
+model CaseKorban {
+  id         Int          @id @default(autoincrement())
+  case_id     Int?         @map("case_id")
+  person_id   Int?         @map("person_id")
+  keterangan String?      @db.MediumText
+  caseId       Renamedcase? @relation("caseTocase_korban", fields: [case_id], references: [id])
+  personId     Person?      @relation(fields: [person_id], references: [id])
+
+  @@map("case_korban")
+}
+
+model CasePelaku {
+  id          Int          @id @default(autoincrement())
+  jenisPelaku String?      @db.MediumText
+  case_id      Int?         @map("case_id")
+  person_id    Int?         @map("person_id")
+  caseId        Renamedcase? @relation("caseTocase_pelaku", fields: [case_id], references: [id])
+  personId      Person?      @relation(fields: [person_id], references: [id])
+
+  @@map("case_pelaku")
+}
+
+model CasePk {
+  id                  Int          @id @default(autoincrement())
+  createdAt           DateTime     @default(now()) @map("created_at") @db.DateTime(0)
+  createdBy           String?      @map("created_by") @db.MediumText
+  didampingi          String?      @db.MediumText
+  legalMemo           String?      @map("legal_memo") @db.MediumText
+  notulaRapat         String?      @map("notula_rapat") @db.MediumText
+  targetAkhirAdvokasi String?      @map("target_akhir_advokasi") @db.MediumText
+  strategiAdvokasi    String?      @map("strategi_advokasi") @db.MediumText
+  statusAlasanTdk     String?      @map("status_alasan_tdk") @db.MediumText
+  tglRapat            DateTime?    @map("tgl_rapat")
+  updatedAt           DateTime     @updatedAt @map("updated_at")
+  updatedBy           String?      @map("updated_by") @db.MediumText
+  pp_pendamping        Int? @map("ppPendamping")
+  ppPendamping                User?        @relation(fields: [pp_pendamping], references: [id])
+  case                Renamedcase? @relation("caseTocase_pk")
+
+  @@map("case_pk")
+}
+
+model CaseProgress {
+  id             Int          @id @default(autoincrement())
+  catatan        String?      @db.MediumText
+  createdAt      DateTime     @default(now()) @map("created_at") @db.DateTime(0)
+  createdBy      String?      @map("created_by") @db.MediumText
+  jenisPeradilan String?      @map("jenis_peradilan") @db.MediumText
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+  updatedBy      String?      @map("updated_by") @db.MediumText
+  case           Renamedcase? @relation("caseTocase_progress")
+
+  @@map("case_progress")
+}
+
+model CaseProgressActivity {
+  id                         Int                          @id @default(autoincrement())
+  capaian                    String?                      @db.MediumText
+  createdAt                  DateTime                     @default(now()) @map("created_at") @db.DateTime(0)
+  createdBy                  String?                      @map("created_by") @db.MediumText
+  hambatan                   String?                      @db.MediumText
+  judulAktifitas             String?                      @map("judul_aktifitas") @db.MediumText
+  position                   String?                      @db.MediumText
+  rencanaStrategi            String?                      @map("rencana_strategi") @db.MediumText
+  targetAdvokasi             String?                      @map("target_advokasi") @db.MediumText
+  tglAktifitas               DateTime?                    @map("tgl_aktifitas")
+  updatedAt                  DateTime                     @updatedAt @map("updated_at")
+  updatedBy                  String?                      @map("updated_by") @db.MediumText
+  case_id                     Int?                         @map("case_id")
+  caseId                       Renamedcase?                 @relation("caseTocase_progress_activity", fields: [case_id], references: [id])
+  activitieslit    CaseProgressActivityLit[]
+  activitiesnonlit CaseProgressActivityNonlit[]
+
+  @@map("case_progress_activity")
+}
+
+model CaseProgressActivityLit {
+  id                     Int                   @id @default(autoincrement())
+  kodeMt                 String?               @map("kode_mt") @db.MediumText
+  case_progress_activity_id Int?                  @map("case_progress_activity_id")
+  caseProgressActivityId   CaseProgressActivity? @relation(fields: [case_progress_activity_id], references: [id])
+
+  @@map("case_progress_activity_lit")
+}
+
+model CaseProgressActivityNonlit {
+  id                     Int                   @id @default(autoincrement())
+  kodeMt                 String?               @map("kode_mt") @db.MediumText
+  case_progress_activity_id Int?                  @map("case_progress_activity_id")
+  caseProgressActivityId   CaseProgressActivity? @relation(fields: [case_progress_activity_id], references: [id])
+
+  @@map("case_progress_activity_nonlit")
+}
+
+model CaseTransferReferral {
+  id                    Int          @id @default(autoincrement())
+  catatan               String?      @db.MediumText
+  createdAt             DateTime     @default(now()) @map("created_at") @db.DateTime(0)
+  createdBy             String?      @map("created_by") @db.MediumText
+  document              String?      @db.MediumText
+  jenisTransferReferral String?      @map("jenis_transfer_referral") @db.MediumText
+  networkId             Int?         @map("network_id")
+  tglTransferReferral   DateTime?    @map("tgl_transfer_referral")
+  updatedAt             DateTime     @updatedAt @map("updated_at")
+  updatedBy             String?      @map("updated_by") @db.MediumText
+  case_id                Int?         @map("case_id")
+  caseId                  Renamedcase? @relation("caseTocase_transfer_referral", fields: [case_id], references: [id])
+
+  @@map("case_transfer_referral")
+}
+
+model CaseViolatedRight {
+  id     Int          @id @default(autoincrement())
+  kodeMt String?      @map("kode_mt") @db.MediumText
+  case_id Int?         @map("case_id")
+  caseId   Renamedcase? @relation("caseTocase_violated_rights", fields: [case_id], references: [id])
+
+  @@map("case_violated_rights")
+}
+
+model Client {
+  id                 Int          @id @default(autoincrement())
+  alamatLokasi       String?      @map("alamat_lokasi") @db.MediumText
+  asetGedung         String?      @map("aset_gedung") @db.MediumText
+  asetKios           String?      @map("aset_kios") @db.MediumText
+  asetLahanGarapan   String?      @map("aset_lahan_garapan") @db.MediumText
+  asetLapak          String?      @map("aset_lapak") @db.MediumText
+  asetMobil          String?      @map("aset_mobil") @db.MediumText
+  asetMotor          String?      @map("aset_motor") @db.MediumText
+  asetRumah          String?      @map("aset_rumah") @db.MediumText
+  asetTanah          String?      @map("aset_tanah") @db.MediumText
+  asetToko           String?      @map("aset_toko") @db.MediumText
+  asetWarung         String?      @map("aset_warung") @db.MediumText
+  createdAt          DateTime     @default(now()) @map("created_at") @db.DateTime(0)
+  createdBy          String?      @map("created_by") @db.MediumText
+  pendapatan         String?      @db.MediumText
+  sktm               Boolean
+  sktmUpload         String?      @map("sktm_upload") @db.MediumText
+  stmKeterangan      String?      @map("stm_keterangan") @db.MediumText
+  tanggunganAnak     Int?         @map("tanggungan_anak")
+  tanggunganFamili   Int?         @map("tanggungan_famili")
+  tanggunganLain     Int?         @map("tanggungan_lain")
+  tanggunganPasangan Int?         @map("tanggungan_pasangan")
+  updatedAt          DateTime     @updatedAt @map("updated_at")
+  updatedBy          String?      @map("updated_by") @db.MediumText
+  usiaSaatKlien      Int?         @map("usia_saat_klien")
+  person           Int?         @map("person_id")
+  application      Int?         @map("application_id")
+  applicationId        Application? @relation(fields: [application], references: [id])
+  personId             Person?      @relation(fields: [person], references: [id])
+  LogRequest         LogRequest[]
+
+  @@map("client")
+}
+
+model DaftarPengacara {
+  ID          Int     @id @default(autoincrement())
+  jabatan     String? @db.MediumText
+  namaLengkap String? @map("nama_lengkap") @db.MediumText
+  sembunyikan Boolean
+
+  @@map("daftar_pengacara")
+}
+
+model DataDict {
+  fieldNumber        String          @id @default(cuid()) @map("field_number") @db.Char(30)
+  dataType           String?         @map("data_type") @db.MediumText
+  entity             String?         @db.MediumText
+  fieldName          String?         @map("field_name") @db.MediumText
+  fieldType          String?         @map("field_type") @db.MediumText
+  isRepeat           String?         @map("is_repeat") @db.MediumText
+  linkField          String?         @map("link_field") @db.MediumText
+  linkTable          String?         @map("link_table") @db.MediumText
+  listCode           String?         @map("list_code") @db.MediumText
+  required           String?         @db.MediumText
+  validation         String?         @db.MediumText
+  visibleSelectQuery String?         @map("visible_select_query") @db.MediumText
+  DataDictLocal      DataDictLocal[]
+
+  @@map("data_dict")
+}
+
+model DataDictLocal {
+  id          Int       @id @default(autoincrement())
+  label       String?   @db.MediumText
+  lang        String?   @db.MediumText
+  fieldNumber String?   @map("field_number") @db.Char(30)
+  DataDict    DataDict? @relation(fields: [fieldNumber], references: [fieldNumber])
+
+  @@index([fieldNumber], name: "field_number")
+  @@map("data_dict_local")
+}
+
+model LogRequest {
+  ID                  Int             @id @default(autoincrement())
+  isiRequest          String?         @map("isi_request") @db.MediumText
+  jenisRequest        String?         @map("jenis_request") @db.MediumText
+  statusRequest       String?         @db.MediumText
+  tanggapanRequest    String?         @map("tanggapan_request") @db.MediumText
+  tanggapanRequestIsi String?         @db.MediumText
+  tglExpired          DateTime?       @map("tgl_expired")
+  tglRequest          DateTime?       @map("tgl_request")
+  tglRespon           DateTime?       @map("tgl_respon")
+  updatedAt           DateTime?       @updatedAt @map("updated_at")
+  person            Int?            @map("person_id")
+  case              Int?            @map("case_id")
+  request_by           Int?            @map("request_by")
+  application       Int?            @map("application_id")
+  network           Int?            @map("network_id")
+  request_to           Int?            @map("request_to")
+  applicationId         Application?    @relation(fields: [application], references: [id])
+  caseId              Renamedcase?    @relation("caseTolog_request", fields: [case], references: [id])
+  networkId             Network?        @relation(fields: [network], references: [id])
+  personId              Person?         @relation(fields: [person], references: [id])
+  requestBy          User?           @relation("log_request_request_byTousers", fields: [request_by], references: [id])
+  requestTo          User?           @relation("log_request_request_toTousers", fields: [request_to], references: [id])
+  pp       LogRequestApp[]
+  Client              Client[]
+
+  @@map("log_request")
+}
+
+model LogRequestApp {
+  id              Int         @id @default(autoincrement())
+  log_request_id    Int?        @map("log_request_id")
+  app_consultation Int?        @map("app_consultation")
+  keterangan      String?     @db.MediumText
+  appConsultation            User?       @relation(fields: [app_consultation], references: [id])
+  logRequestId      LogRequest? @relation(fields: [log_request_id], references: [ID])
+
+  @@map("log_request_app")
+}
+
+model MtVocab {
+  KODE         String        @id @default(cuid()) @db.Char(30)
+  kode_induk   String?       @map("KODE_INDUK") @db.MediumText
+  level        Int?          @map("LEVEL")
+  sembunyikan  Boolean       @map("SEMBUNYIKAN")
+  teks         String?       @map("TEKS") @db.MediumText
+  urutan       Int?          @map("URUTAN")
+  kode_list_group    Int?          @map("KODE_LIST")
+  kode_list MtVocabGroup? @relation(fields: [kode_list_group], references: [kode_list])
+
+  @@map("mt_vocab")
+}
+
+model MtVocabGroup {
+  kode_list Int       @id @default(autoincrement()) @map("KODE_LIST")
+  nama_list String?   @map("NAMA_LIST") @db.MediumText
+  mtvocabs   MtVocab[]
+
+  @@map("mt_vocab_group")
+}
+
+model Network {
+  id            Int            @id @default(autoincrement())
+  address       String?        @db.MediumText
+  contactPerson String?        @map("contact_person") @db.MediumText
+  createdAt     DateTime       @default(now()) @map("created_at") @db.DateTime(0)
+  email         String?        @db.MediumText
+  name          String?        @db.MediumText
+  noContact     String?        @map("no_contact") @db.MediumText
+  provinceId    Int?           @map("province_id")
+  regencyId     Int?           @map("regency_id")
+  type          String?        @db.MediumText
+  status        String?        @db.MediumText
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+  CaseReferral  CaseReferral[]
+  CaseTransfer  CaseTransfer[]
+  LogRequest    LogRequest[]
+
+  @@map("networks")
+}
+
+model Person {
+  id               Int              @id @default(autoincrement())
+  agama            String?          @db.MediumText
+  alamatDomisili   String?          @map("alamat_domisili") @db.MediumText
+  alamatId         String?          @map("alamat_id") @db.MediumText
+  alatBantu        String?          @map("alat_bantu") @db.MediumText
+  alias            String?          @db.MediumText
+  createdAt        DateTime         @default(now()) @map("created_at") @db.DateTime(0)
+  createdBy        String?          @map("created_by") @db.MediumText
+  disabilitas      Boolean
+  distrikDomisili  String?          @map("distrik_domisili") @db.MediumText
+  distrikId        String?          @map("distrik_id") @db.MediumText
+  domisiliSama     Boolean          @map("domisili_sama")
+  email            String?          @db.MediumText
+  golDarah         String?          @map("gol_darah") @db.MediumText
+  jenisDisabilitas String?          @map("jenis_disabilitas") @db.MediumText
+  jenisDomisili    String?          @map("jenis_domisili") @db.MediumText
+  orientasiSeksual String?          @map("orientasi_seksual") @db.MediumText
+  jenisId          String?          @map("jenis_id") @db.MediumText
+  jenisKelamin     String?          @map("jenis_kelamin") @db.MediumText
+  jmlAnggota       Int?             @map("jml_anggota")
+  namaLengkap      String?          @map("nama_lengkap") @db.MediumText
+  nomorId          String?          @map("nomor_id") @db.MediumText
+  pekerjaan        String?          @db.MediumText
+  pekerjaanLokal   String?     @map("pekerjaan_lokal") @db.MediumText
+  pendidikan       String?          @db.MediumText
+  statusPernikahan String?          @map("status_pernikahan") @db.MediumText
+  telepon          String?          @db.MediumText
+  tglLahir         DateTime?        @map("tgl_lahir")
+  tmpLahir         String?          @map("tmp_lahir") @db.MediumText
+  unitSatuan       String?          @map("unit_satuan") @db.MediumText
+  updatedAt        DateTime         @updatedAt @map("updated_at")
+  updatedBy        String?          @map("updated_by") @db.MediumText
+  wargaNegara      String?          @map("warga_negara") @db.MediumText
+  applications      Application[]
+  CaseReferral     CaseReferral[]
+  CaseKorban       CaseKorban[]
+  CasePelaku       CasePelaku[]
+  clients           Client[]
+  LogRequest       LogRequest[]
+  documents   PersonDocument[]
+
+  @@map("person")
+}
+
+model PersonDocument {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now()) @map("created_at") @db.DateTime(0)
+  deletedAt DateTime? @map("deleted_at")
+  file      Int?
+  title     Int?
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  personId  Int?      @map("person_id")
+  Person    Person?   @relation(fields: [personId], references: [id])
+
+  @@index([personId], name: "person_id")
+  @@map("person_documents")
+}
+
+model Role {
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now()) @map("created_at") @db.DateTime(0)
+  typeRole      Int?
+  type RolesType? @relation(fields: [typeRole], references: [id])
+  User      User[]
+
+  @@map("roles")
+}
+
+model RolesType {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now()) @map("created_at") @db.DateTime(0)
+  description String?  @db.MediumText
+  Role        Role[]
+
+  @@map("roles_type")
+}
+
+model SrcAnalisa {
+  id        Int     @id @default(autoincrement())
+  group     String? @db.MediumText
+  label     String? @db.MediumText
+  field     String? @db.MediumText
+  type      String? @db.MediumText
+  source    String? @db.MediumText
+  kode_list String? @db.MediumText
+  alias     String? @db.MediumText
+
+  @@map("src_analisa")
+}
+
+model SrcOperator {
+  id       Int     @id @default(autoincrement())
+  type     String? @db.MediumText
+  operator String? @db.MediumText
+  label    String? @db.MediumText
+
+  @@map("src_operator")
+}
+
+model SrcTemplate {
+  id       Int     @id @default(autoincrement())
+  name     String? @db.MediumText
+  template String? @db.MediumText
+
+  @@map("src_template")
+}
+
+model User {
+  id                  Int                   @id @default(autoincrement())
+  address             String?               @db.MediumText
+  avatar              String?               @db.MediumText
+  createdAt           DateTime              @default(now()) @map("created_at") @db.DateTime(0)
+  deletedAt           DateTime?             @map("deleted_at")
+  email               String?               @db.MediumText
+  name                String?               @db.MediumText
+  password            String?               @db.MediumText
+  phone               String?               @db.MediumText
+  position            String?               @db.MediumText
+  rememberToken       String?               @map("remember_token") @db.MediumText
+  roles               String?               @db.MediumText
+  status              String?               @db.MediumText
+  updatedAt           DateTime              @updatedAt @map("updated_at")
+  username            String?               @db.MediumText
+  userProfileId       Int?                  @unique
+  profile             UserProfile?          @relation(fields: [userProfileId], references: [id])
+  CaseConsultationApp CaseConsultationApp[]
+  CasePk              CasePk[]
+  logRequestBy        LogRequest[]          @relation("log_request_request_byTousers")
+  logRequestTo        LogRequest[]          @relation("log_request_request_toTousers")
+  LogRequestApp       LogRequestApp[]
+  roles_type          Role[]
+
+  @@map("users")
+
+}
+
+model UserProfile {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now()) @map("created_at") @db.DateTime(0)
+  noContact  String?  @map("no_contact") @db.MediumText
+  occupation String?  @db.MediumText
+  photo      String?  @db.MediumText
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("user_profiles")
+  User User? 
+}

@@ -1,0 +1,389 @@
+type Application @db(name: "application") {
+  id: Int! @id
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  createdBy: String @db(name: "created_by")
+  dudukPerara: String @db(name: "duduk_perara")
+  infoLbh: String @db(name: "info_lbh")
+  jumlahPenerimaManfaat: Int @db(name: "jumlah_penerima_manfaat")
+  konfirmasiData: Boolean! @db(name: "konfirmasi_data")
+  noReg: String @db(name: "no_reg")
+  pernahKlien: String @db(name: "pernah_klien")
+  pernahPpLain: String @db(name: "pernah_pp_lain")
+  ppLain: String @db(name: "pp_lain")
+  regDate: DateTime @db(name: "reg_date")
+  relasiWakilClient: String @db(name: "relasi_wakil_client")
+  setujuAdvokasi: Boolean! @db(name: "setuju_advokasi")
+  statusPerwakilan: String @db(name: "status_perwakilan")
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  updatedBy: String @db(name: "updated_by")
+  wakilId: Person! @db(name: "wakil_id")
+  waktuPernahKlien: String @db(name: "waktu_pernah_klien")
+  whyLbh: String @db(name: "why_lbh")
+  case: Case! @relation(link: INLINE)
+  clients: [Client!]!
+}
+
+type Case @db(name: "case") {
+  id: Int! @id
+  applicationId: Int @db(name: "application_id")
+  caseClosed: Boolean! @db(name: "case_closed")
+  caseClosedJenis: String @db(name: "case_closed_jenis")
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  createdBy: String @db(name: "created_by")
+  hakTerlanggar: String @db(name: "hak_terlanggar")
+  issue: String
+  judulKasus: String @db(name: "judul_kasus")
+  klasifikasiDok: String @db(name: "klasifikasi_dok")
+  kronologiKasus: String @db(name: "kronologi_kasus")
+  lockDitolak: Boolean! @db(name: "lock_ditolak")
+  statusPendampingan: String @db(name: "status_pendampingan")
+  targetAdvokasi: String @db(name: "target_advokasi")
+  unlockPk: Boolean! @db(name: "unlock_pk")
+  unlockTransfer: Boolean! @db(name: "unlock_transfer")
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  updatedBy: String @db(name: "updated_by")
+  application: Application!
+  clients: [Client!]!
+  classifications: [CaseClassification!]!
+  consultations: [CaseConsultation!]!
+  documents: [CaseDocument!]!
+  issues: [CaseIssue!]!
+  korbans: [CaseKorban]
+  pelakus: [CasePelaku]
+  pks: [CasePk!]!
+  progresses: [CaseProgress!]!
+  activities: [CaseProgressActivity!]!
+  transferreferrals: [CaseTransferReferral!]!
+  violatedrights: [CaseViolatedRight!]!
+}
+
+type CaseClassification @db(name: "case_classification") {
+  id: Int! @id
+  caseId: Case! @db(name: "case_id")
+  kodeMt: String @db(name: "kode_mt")
+}
+
+type CaseConsultation @db(name: "case_consultation") {
+  id: Int! @id
+  appKonsul: String @db(name: "app_konsul")
+  caseId: Case! @db(name: "case_id")
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  createdBy: String @db(name: "created_by")
+  isiKonsul: String @db(name: "isi_konsul")
+  judulAktifitas: String @db(name: "judul_aktifitas")
+  ppKonsul: String @db(name: "pp_konsul")
+  tglKonsul: DateTime @db(name: "tgl_konsul")
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  updatedBy: String @db(name: "updated_by")
+  apps: [CaseConsultationApp!]!
+}
+
+type CaseConsultationApp @db(name: "case_consultation_app") {
+  id: Int! @id
+  appConsultation: String @db(name: "app_consultation")
+  caseConsultationId: CaseConsultation! @db(name: "case_consultation_id")
+}
+
+type CaseDocument @db(name: "case_document") {
+  id: Int! @id
+  caseId: Case! @db(name: "case_id")
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  createdBy: String @db(name: "created_by")
+  jenisDokumen: String @db(name: "jenis_dokumen")
+  judulDokumen: String @db(name: "judul_dokumen")
+  keterangan: String
+  link: String
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  updatedBy: String @db(name: "updated_by")
+}
+
+type CaseIssue @db(name: "case_issue") {
+  id: Int! @id
+  caseId: Case! @db(name: "case_id")
+  kodeMt: String @db(name: "kode_mt")
+}
+
+type CaseKorban @db(name: "case_korban") {
+  id: Int! @id
+  caseId: Case! @db(name: "case_id")
+  personId: Person @db(name: "person_id")
+}
+
+type CasePelaku @db(name: "case_pelaku") {
+  id: Int! @id
+  caseId: Case! @db(name: "case_id")
+  personId: Person @db(name: "person_id")
+}
+
+type CasePk @db(name: "case_pk") {
+  id: Int! @id
+  caseId: Case! @db(name: "case_id")
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  createdBy: String @db(name: "created_by")
+  didampingi: Boolean!
+  legalMemo: String @db(name: "legal_memo")
+  notulaRapat: String @db(name: "notula_rapat")
+  ppPendamping: Int @db(name: "pp_pendamping")
+  statusAlasanTdk: String @db(name: "status_alasan_tdk")
+  tglRapat: DateTime @db(name: "tgl_rapat")
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  updatedBy: String @db(name: "updated_by")
+}
+
+type CaseProgress @db(name: "case_progress") {
+  id: Int! @id
+  caseId: Case! @db(name: "case_id")
+  catatan: String
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  createdBy: String @db(name: "created_by")
+  jenisPeradilan: String @db(name: "jenis_peradilan")
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  updatedBy: String @db(name: "updated_by")
+}
+
+type CaseProgressActivity @db(name: "case_progress_activity") {
+  id: Int! @id
+  capaian: String
+  caseId: Case! @db(name: "case_id")
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  createdBy: String @db(name: "created_by")
+  hambatan: String
+  judulAktifitas: String @db(name: "judul_aktifitas")
+  position: String
+  rencanaStrategi: String @db(name: "rencana_strategi")
+  targetAdvokasi: String @db(name: "target_advokasi")
+  tglAktifitas: DateTime @db(name: "tgl_aktifitas")
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  updatedBy: String @db(name: "updated_by")
+  activitieslit: [CaseProgressActivityLit!]!
+  activitiesnonlit: [CaseProgressActivityNonlit!]!
+}
+
+type CaseProgressActivityLit @db(name: "case_progress_activity_lit") {
+  id: Int! @id
+  caseProgressActivityId: CaseProgressActivity! @db(name: "case_progress_activity_id")
+  kodeMt: String @db(name: "kode_mt")
+}
+
+type CaseProgressActivityNonlit @db(name: "case_progress_activity_nonlit") {
+  id: Int! @id
+  caseProgressActivityId: CaseProgressActivity! @db(name: "case_progress_activity_id")
+  kodeMt: String @db(name: "kode_mt")
+}
+
+type CaseTransferReferral @db(name: "case_transfer_referral") {
+  id: Int! @id
+  caseId: Case! @db(name: "case_id")
+  catatan: String
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  createdBy: String @db(name: "created_by")
+  document: String
+  jenisTransferReferral: String @db(name: "jenis_transfer_referral")
+  networkId: Int @db(name: "network_id")
+  tglTransferReferral: DateTime @db(name: "tgl_transfer_referral")
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  updatedBy: String @db(name: "updated_by")
+}
+
+type CaseViolatedRight @db(name: "case_violated_rights") {
+  id: Int! @id
+  caseId: Case! @db(name: "case_id")
+  kodeMt: String @db(name: "kode_mt")
+}
+
+type Client @db(name: "client") {
+  id: Int! @id
+  alamatLokasi: String @db(name: "alamat_lokasi")
+  applicationId: Application! @relation(link: INLINE) @db(name: "application_id") 
+  asetGedung: String @db(name: "aset_gedung")
+  asetKios: String @db(name: "aset_kios")
+  asetLahanGarapan: String @db(name: "aset_lahan_garapan")
+  asetLapak: String @db(name: "aset_lapak")
+  asetMobil: String @db(name: "aset_mobil")
+  asetMotor: String @db(name: "aset_motor")
+  asetRumah: String @db(name: "aset_rumah")
+  asetTanah: String @db(name: "aset_tanah")
+  asetToko: String @db(name: "aset_toko")
+  asetWarung: String @db(name: "aset_warung")
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  createdBy: String @db(name: "created_by")
+  pendapatan: String
+  personId: Person! @db(name: "person_id")
+  sktm: Boolean!
+  sktmUpload: String @db(name: "sktm_upload")
+  stmKeterangan: String @db(name: "stm_keterangan")
+  tanggunganAnak: Int @db(name: "tanggungan_anak")
+  tanggunganFamili: Int @db(name: "tanggungan_famili")
+  tanggunganLain: Int @db(name: "tanggungan_lain")
+  tanggunganPasangan: Int @db(name: "tanggungan_pasangan")
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  updatedBy: String @db(name: "updated_by")
+  usiaSaatKlien: Int @db(name: "usia_saat_klien")
+  caseid: Case! 
+}
+
+type DaftarPengacara @db(name: "daftar_pengacara") {
+  ID: Int! @id
+  jabatan: String
+  namaLengkap: String @db(name: "nama_lengkap")
+  sembunyikan: Boolean!
+}
+
+type DataDict @db(name: "data_dict") {
+  fieldNumber: ID! @id @db(name: "field_number")
+  dataType: String @db(name: "data_type")
+  entity: String
+  fieldName: String @db(name: "field_name")
+  fieldType: String @db(name: "field_type")
+  isRepeat: String @db(name: "is_repeat")
+  linkField: String @db(name: "link_field")
+  linkTable: String @db(name: "link_table")
+  listCode: String @db(name: "list_code")
+  required: String
+  validation: String
+  visibleSelectQuery: String @db(name: "visible_select_query")
+  locals: [DataDictLocal!]!
+}
+
+type DataDictLocal @db(name: "data_dict_local") {
+  id: Int! @id
+  fieldNumber: DataDict! @db(name: "field_number")
+  label: String
+  lang: String
+}
+
+type LogRequest @db(name: "log_request") {
+  ID: Int! @id
+  caseId: Int @db(name: "case_id")
+  isiRequest: String @db(name: "isi_request")
+  jenisRequest: String @db(name: "jenis_request")
+  networkId: Int @db(name: "network_id")
+  personId: Int @db(name: "person_id")
+  pp: Int
+  requestBy: Int @db(name: "request_by")
+  requestTo: Int @db(name: "request_to")
+  tanggapanRequest: String @db(name: "tanggapan_request")
+  tglExpired: DateTime @db(name: "tgl_expired")
+  tglRequest: DateTime @db(name: "tgl_request")
+  tglRespon: DateTime @db(name: "tgl_respon")
+}
+
+type LogRequestApp @db(name: "log_request_app") {
+  id: Int! @id
+  appConsultation: String @db(name: "app_consultation")
+  logRequestId: Int @db(name: "log_request_id")
+}
+
+type MtVocab @db(name: "mt_vocab") {
+  KODE: ID! @id
+  kode_induk: String @db(name: "KODE_INDUK")
+  kode_list: MtVocabGroup @db(name: "KODE_LIST")
+  level: Int @db(name: "LEVEL")
+  sembunyikan: Boolean! @db(name: "SEMBUNYIKAN")
+  teks: String @db(name: "TEKS")
+  urutan: Int @db(name: "URUTAN")
+}
+
+type MtVocabGroup @db(name: "mt_vocab_group") {
+  kode_list: Int! @id @db(name: "KODE_LIST")
+  nama_list: String @db(name: "NAMA_LIST")
+  mtvocabs: [MtVocab]
+}
+
+type Network @db(name: "networks") {
+  address: String
+  contactPerson: String @db(name: "contact_person")
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  email: String
+  id: Int! @id
+  name: String
+  noContact: String @db(name: "no_contact")
+  provinceId: Int @db(name: "province_id")
+  regencyId: Int @db(name: "regency_id")
+  type: String
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+}
+
+type Person @db(name: "person") {
+  id: Int! @id
+  agama: String
+  alamatDomisili: String @db(name: "alamat_domisili")
+  alamatId: String @db(name: "alamat_id")
+  alatBantu: String @db(name: "alat_bantu")
+  alias: String
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  createdBy: String @db(name: "created_by")
+  disabilitas: Boolean!
+  distrikDomisili: String @db(name: "distrik_domisili")
+  distrikId: String @db(name: "distrik_id")
+  domisiliSama: Boolean! @db(name: "domisili_sama")
+  email: String
+  golDarah: String @db(name: "gol_darah")
+  jenisDisabilitas: String @db(name: "jenis_disabilitas")
+  jenisDomisili: String @db(name: "jenis_domisili")
+  jenisId: String @db(name: "jenis_id")
+  jenisKelamin: String @db(name: "jenis_kelamin")
+  jmlAnggota: Int @db(name: "jml_anggota")
+  namaLengkap: String @db(name: "nama_lengkap")
+  nomorId: String @db(name: "nomor_id")
+  pekerjaan: String
+  pendidikan: String
+  statusPernikahan: String @db(name: "status_pernikahan")
+  telepon: String
+  tglLahir: DateTime @db(name: "tgl_lahir")
+  tmpLahir: String @db(name: "tmp_lahir")
+  unitSatuan: String @db(name: "unit_satuan")
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  updatedBy: String @db(name: "updated_by")
+  wargaNegara: String @db(name: "warga_negara")
+  applications: [Application!]!
+  casekorbans: [CaseKorban!]!
+  casepelakus: [CasePelaku!]!
+  clients: [Client!]!
+  documents: [PersonDocument!]!
+}
+
+type PersonDocument @db(name: "person_documents") {
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  deletedAt: DateTime @db(name: "deleted_at")
+  file: Int
+  id: Int! @id
+  personId: Person! @db(name: "person_id")
+  title: Int
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+}
+
+type Role @db(name: "roles") {
+  id: Int! @id
+  type: Int
+  userId: Int @db(name: "user_id")
+}
+
+type User @db(name: "users") {
+  address: String
+  avatar: String
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  deletedAt: DateTime @db(name: "deleted_at")
+  email: String
+  id: Int! @id
+  name: String
+  password: String
+  phone: String
+  position: String
+  rememberToken: String @db(name: "remember_token")
+  roles: String
+  status: String
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  username: String
+  profile: UserProfile! @relation(link: INLINE)
+}
+
+type UserProfile @db(name: "user_profiles") {
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  id: Int! @id
+  noContact: String @db(name: "no_contact")
+  occupation: String
+  photo: String
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  userId: User! @db(name: "user_id")
+}

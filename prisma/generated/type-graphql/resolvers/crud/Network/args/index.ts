@@ -1,0 +1,10 @@
+export { AggregateNetworkArgs } from "./AggregateNetworkArgs";
+export { CreateNetworkArgs } from "./CreateNetworkArgs";
+export { DeleteManyNetworkArgs } from "./DeleteManyNetworkArgs";
+export { DeleteNetworkArgs } from "./DeleteNetworkArgs";
+export { FindFirstNetworkArgs } from "./FindFirstNetworkArgs";
+export { FindManyNetworkArgs } from "./FindManyNetworkArgs";
+export { FindUniqueNetworkArgs } from "./FindUniqueNetworkArgs";
+export { UpdateManyNetworkArgs } from "./UpdateManyNetworkArgs";
+export { UpdateNetworkArgs } from "./UpdateNetworkArgs";
+export { UpsertNetworkArgs } from "./UpsertNetworkArgs";

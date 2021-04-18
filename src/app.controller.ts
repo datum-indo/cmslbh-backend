@@ -14,7 +14,7 @@ import { UseInterceptors, UploadedFile } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import * as moment from 'moment';
+import moment from 'moment';
 import {
   MtVocabGroupWhereInput,
   MtVocabWhereInput,
@@ -29,7 +29,7 @@ export class AppController {
     private readonly appService: AppService,
     private mtVocabResolver: MTVocabResolver,
     private mysqlService: MysqlService,
-  ) {}
+  ) { }
 
   @Get()
   async getHello(): Promise<any> {
@@ -230,15 +230,13 @@ export class AppController {
         param.clients[0].personId.namaLengkap !== null
           ? param.clients[0].personId.namaLengkap
           : '',
-      tempat_tgl_lahir: `${
-        param.clients[0].personId.tmpLahir !== null
+      tempat_tgl_lahir: `${param.clients[0].personId.tmpLahir !== null
           ? param.clients[0].personId.tmpLahir
           : ''
-      } ${
-        param.clients[0].personId.tglLahir !== null
+        } ${param.clients[0].personId.tglLahir !== null
           ? moment(param.clients[0].personId.tglLahir).format('DD-MM-YYYY')
           : ''
-      }`,
+        }`,
       alamat:
         param.clients[0].personId.alamatId !== null
           ? param.clients[0].personId.alamatId
@@ -280,7 +278,7 @@ export class AppController {
       // console.log(JSON.stringify({ error: e }));
       if (error.properties && error.properties.errors instanceof Array) {
         const errorMessages = error.properties.errors
-          .map(function(error) {
+          .map(function (error) {
             return error.properties.explanation;
           })
           .join('\n');

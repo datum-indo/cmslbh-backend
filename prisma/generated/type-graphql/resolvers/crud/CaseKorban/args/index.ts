@@ -1,0 +1,10 @@
+export { AggregateCaseKorbanArgs } from "./AggregateCaseKorbanArgs";
+export { CreateCaseKorbanArgs } from "./CreateCaseKorbanArgs";
+export { DeleteCaseKorbanArgs } from "./DeleteCaseKorbanArgs";
+export { DeleteManyCaseKorbanArgs } from "./DeleteManyCaseKorbanArgs";
+export { FindFirstCaseKorbanArgs } from "./FindFirstCaseKorbanArgs";
+export { FindManyCaseKorbanArgs } from "./FindManyCaseKorbanArgs";
+export { FindUniqueCaseKorbanArgs } from "./FindUniqueCaseKorbanArgs";
+export { UpdateCaseKorbanArgs } from "./UpdateCaseKorbanArgs";
+export { UpdateManyCaseKorbanArgs } from "./UpdateManyCaseKorbanArgs";
+export { UpsertCaseKorbanArgs } from "./UpsertCaseKorbanArgs";

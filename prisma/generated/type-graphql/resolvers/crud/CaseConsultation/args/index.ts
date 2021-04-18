@@ -1,0 +1,10 @@
+export { AggregateCaseConsultationArgs } from "./AggregateCaseConsultationArgs";
+export { CreateCaseConsultationArgs } from "./CreateCaseConsultationArgs";
+export { DeleteCaseConsultationArgs } from "./DeleteCaseConsultationArgs";
+export { DeleteManyCaseConsultationArgs } from "./DeleteManyCaseConsultationArgs";
+export { FindFirstCaseConsultationArgs } from "./FindFirstCaseConsultationArgs";
+export { FindManyCaseConsultationArgs } from "./FindManyCaseConsultationArgs";
+export { FindUniqueCaseConsultationArgs } from "./FindUniqueCaseConsultationArgs";
+export { UpdateCaseConsultationArgs } from "./UpdateCaseConsultationArgs";
+export { UpdateManyCaseConsultationArgs } from "./UpdateManyCaseConsultationArgs";
+export { UpsertCaseConsultationArgs } from "./UpsertCaseConsultationArgs";

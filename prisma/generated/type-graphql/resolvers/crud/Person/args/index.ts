@@ -1,0 +1,10 @@
+export { AggregatePersonArgs } from "./AggregatePersonArgs";
+export { CreatePersonArgs } from "./CreatePersonArgs";
+export { DeleteManyPersonArgs } from "./DeleteManyPersonArgs";
+export { DeletePersonArgs } from "./DeletePersonArgs";
+export { FindFirstPersonArgs } from "./FindFirstPersonArgs";
+export { FindManyPersonArgs } from "./FindManyPersonArgs";
+export { FindUniquePersonArgs } from "./FindUniquePersonArgs";
+export { UpdateManyPersonArgs } from "./UpdateManyPersonArgs";
+export { UpdatePersonArgs } from "./UpdatePersonArgs";
+export { UpsertPersonArgs } from "./UpsertPersonArgs";

@@ -1,0 +1,10 @@
+export { AggregateCasePelakuArgs } from "./AggregateCasePelakuArgs";
+export { CreateCasePelakuArgs } from "./CreateCasePelakuArgs";
+export { DeleteCasePelakuArgs } from "./DeleteCasePelakuArgs";
+export { DeleteManyCasePelakuArgs } from "./DeleteManyCasePelakuArgs";
+export { FindFirstCasePelakuArgs } from "./FindFirstCasePelakuArgs";
+export { FindManyCasePelakuArgs } from "./FindManyCasePelakuArgs";
+export { FindUniqueCasePelakuArgs } from "./FindUniqueCasePelakuArgs";
+export { UpdateCasePelakuArgs } from "./UpdateCasePelakuArgs";
+export { UpdateManyCasePelakuArgs } from "./UpdateManyCasePelakuArgs";
+export { UpsertCasePelakuArgs } from "./UpsertCasePelakuArgs";

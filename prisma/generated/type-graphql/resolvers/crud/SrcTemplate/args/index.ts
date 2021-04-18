@@ -1,0 +1,10 @@
+export { AggregateSrcTemplateArgs } from "./AggregateSrcTemplateArgs";
+export { CreateSrcTemplateArgs } from "./CreateSrcTemplateArgs";
+export { DeleteManySrcTemplateArgs } from "./DeleteManySrcTemplateArgs";
+export { DeleteSrcTemplateArgs } from "./DeleteSrcTemplateArgs";
+export { FindFirstSrcTemplateArgs } from "./FindFirstSrcTemplateArgs";
+export { FindManySrcTemplateArgs } from "./FindManySrcTemplateArgs";
+export { FindUniqueSrcTemplateArgs } from "./FindUniqueSrcTemplateArgs";
+export { UpdateManySrcTemplateArgs } from "./UpdateManySrcTemplateArgs";
+export { UpdateSrcTemplateArgs } from "./UpdateSrcTemplateArgs";
+export { UpsertSrcTemplateArgs } from "./UpsertSrcTemplateArgs";

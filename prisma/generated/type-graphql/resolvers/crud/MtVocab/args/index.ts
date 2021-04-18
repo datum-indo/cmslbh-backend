@@ -1,0 +1,10 @@
+export { AggregateMtVocabArgs } from "./AggregateMtVocabArgs";
+export { CreateMtVocabArgs } from "./CreateMtVocabArgs";
+export { DeleteManyMtVocabArgs } from "./DeleteManyMtVocabArgs";
+export { DeleteMtVocabArgs } from "./DeleteMtVocabArgs";
+export { FindFirstMtVocabArgs } from "./FindFirstMtVocabArgs";
+export { FindManyMtVocabArgs } from "./FindManyMtVocabArgs";
+export { FindUniqueMtVocabArgs } from "./FindUniqueMtVocabArgs";
+export { UpdateManyMtVocabArgs } from "./UpdateManyMtVocabArgs";
+export { UpdateMtVocabArgs } from "./UpdateMtVocabArgs";
+export { UpsertMtVocabArgs } from "./UpsertMtVocabArgs";

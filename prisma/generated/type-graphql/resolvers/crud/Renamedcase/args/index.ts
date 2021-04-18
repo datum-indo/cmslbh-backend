@@ -1,0 +1,10 @@
+export { AggregateRenamedcaseArgs } from "./AggregateRenamedcaseArgs";
+export { CreateRenamedcaseArgs } from "./CreateRenamedcaseArgs";
+export { DeleteManyRenamedcaseArgs } from "./DeleteManyRenamedcaseArgs";
+export { DeleteRenamedcaseArgs } from "./DeleteRenamedcaseArgs";
+export { FindFirstRenamedcaseArgs } from "./FindFirstRenamedcaseArgs";
+export { FindManyRenamedcaseArgs } from "./FindManyRenamedcaseArgs";
+export { FindUniqueRenamedcaseArgs } from "./FindUniqueRenamedcaseArgs";
+export { UpdateManyRenamedcaseArgs } from "./UpdateManyRenamedcaseArgs";
+export { UpdateRenamedcaseArgs } from "./UpdateRenamedcaseArgs";
+export { UpsertRenamedcaseArgs } from "./UpsertRenamedcaseArgs";

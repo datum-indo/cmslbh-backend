@@ -1,0 +1,10 @@
+export { AggregateCaseIssueArgs } from "./AggregateCaseIssueArgs";
+export { CreateCaseIssueArgs } from "./CreateCaseIssueArgs";
+export { DeleteCaseIssueArgs } from "./DeleteCaseIssueArgs";
+export { DeleteManyCaseIssueArgs } from "./DeleteManyCaseIssueArgs";
+export { FindFirstCaseIssueArgs } from "./FindFirstCaseIssueArgs";
+export { FindManyCaseIssueArgs } from "./FindManyCaseIssueArgs";
+export { FindUniqueCaseIssueArgs } from "./FindUniqueCaseIssueArgs";
+export { UpdateCaseIssueArgs } from "./UpdateCaseIssueArgs";
+export { UpdateManyCaseIssueArgs } from "./UpdateManyCaseIssueArgs";
+export { UpsertCaseIssueArgs } from "./UpsertCaseIssueArgs";

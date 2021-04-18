@@ -6,6 +6,8 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { ResolverModule } from '../resolver/resolver.module';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { UserCrudResolver, UserRelationsResolver } from '../../prisma/generated/type-graphql';
+import { ResolverPrismaModule } from '../resolverprisma/resolverprisma.module';
 
 @Module({
   imports: [
@@ -17,8 +19,9 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
       },
     }),
     ResolverModule,
+    ResolverPrismaModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, JwtAuthGuard],
+  providers: [AuthService, JwtStrategy, JwtAuthGuard, UserCrudResolver, UserRelationsResolver],
 })
-export class AuthModule {}
+export class AuthModule { }

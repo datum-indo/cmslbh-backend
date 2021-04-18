@@ -1,0 +1,1 @@
+export { DataDictDataDictLocalArgs } from "./DataDictDataDictLocalArgs";

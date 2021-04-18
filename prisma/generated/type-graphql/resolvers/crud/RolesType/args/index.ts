@@ -1,0 +1,10 @@
+export { AggregateRolesTypeArgs } from "./AggregateRolesTypeArgs";
+export { CreateRolesTypeArgs } from "./CreateRolesTypeArgs";
+export { DeleteManyRolesTypeArgs } from "./DeleteManyRolesTypeArgs";
+export { DeleteRolesTypeArgs } from "./DeleteRolesTypeArgs";
+export { FindFirstRolesTypeArgs } from "./FindFirstRolesTypeArgs";
+export { FindManyRolesTypeArgs } from "./FindManyRolesTypeArgs";
+export { FindUniqueRolesTypeArgs } from "./FindUniqueRolesTypeArgs";
+export { UpdateManyRolesTypeArgs } from "./UpdateManyRolesTypeArgs";
+export { UpdateRolesTypeArgs } from "./UpdateRolesTypeArgs";
+export { UpsertRolesTypeArgs } from "./UpsertRolesTypeArgs";

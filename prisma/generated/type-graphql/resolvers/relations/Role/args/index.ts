@@ -1,0 +1,1 @@
+export { RoleUserArgs } from "./RoleUserArgs";

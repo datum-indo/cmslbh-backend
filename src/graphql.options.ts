@@ -11,9 +11,6 @@ export class GraphqlOptions implements GqlOptionsFactory {
       path: '/graphql',
       installSubscriptionHandlers: true,
       playground: false,
-      resolverValidationOptions: {
-        requireResolversForResolveType: false,
-      },
     };
   }
 }

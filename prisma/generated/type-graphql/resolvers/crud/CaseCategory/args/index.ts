@@ -1,0 +1,10 @@
+export { AggregateCaseCategoryArgs } from "./AggregateCaseCategoryArgs";
+export { CreateCaseCategoryArgs } from "./CreateCaseCategoryArgs";
+export { DeleteCaseCategoryArgs } from "./DeleteCaseCategoryArgs";
+export { DeleteManyCaseCategoryArgs } from "./DeleteManyCaseCategoryArgs";
+export { FindFirstCaseCategoryArgs } from "./FindFirstCaseCategoryArgs";
+export { FindManyCaseCategoryArgs } from "./FindManyCaseCategoryArgs";
+export { FindUniqueCaseCategoryArgs } from "./FindUniqueCaseCategoryArgs";
+export { UpdateCaseCategoryArgs } from "./UpdateCaseCategoryArgs";
+export { UpdateManyCaseCategoryArgs } from "./UpdateManyCaseCategoryArgs";
+export { UpsertCaseCategoryArgs } from "./UpsertCaseCategoryArgs";

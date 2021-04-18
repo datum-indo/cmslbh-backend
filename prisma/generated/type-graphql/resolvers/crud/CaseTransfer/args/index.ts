@@ -1,0 +1,10 @@
+export { AggregateCaseTransferArgs } from "./AggregateCaseTransferArgs";
+export { CreateCaseTransferArgs } from "./CreateCaseTransferArgs";
+export { DeleteCaseTransferArgs } from "./DeleteCaseTransferArgs";
+export { DeleteManyCaseTransferArgs } from "./DeleteManyCaseTransferArgs";
+export { FindFirstCaseTransferArgs } from "./FindFirstCaseTransferArgs";
+export { FindManyCaseTransferArgs } from "./FindManyCaseTransferArgs";
+export { FindUniqueCaseTransferArgs } from "./FindUniqueCaseTransferArgs";
+export { UpdateCaseTransferArgs } from "./UpdateCaseTransferArgs";
+export { UpdateManyCaseTransferArgs } from "./UpdateManyCaseTransferArgs";
+export { UpsertCaseTransferArgs } from "./UpsertCaseTransferArgs";

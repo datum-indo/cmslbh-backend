@@ -1,0 +1,10 @@
+export { AggregateClientArgs } from "./AggregateClientArgs";
+export { CreateClientArgs } from "./CreateClientArgs";
+export { DeleteClientArgs } from "./DeleteClientArgs";
+export { DeleteManyClientArgs } from "./DeleteManyClientArgs";
+export { FindFirstClientArgs } from "./FindFirstClientArgs";
+export { FindManyClientArgs } from "./FindManyClientArgs";
+export { FindUniqueClientArgs } from "./FindUniqueClientArgs";
+export { UpdateClientArgs } from "./UpdateClientArgs";
+export { UpdateManyClientArgs } from "./UpdateManyClientArgs";
+export { UpsertClientArgs } from "./UpsertClientArgs";

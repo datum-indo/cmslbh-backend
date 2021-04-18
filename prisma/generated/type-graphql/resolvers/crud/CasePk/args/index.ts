@@ -1,0 +1,10 @@
+export { AggregateCasePkArgs } from "./AggregateCasePkArgs";
+export { CreateCasePkArgs } from "./CreateCasePkArgs";
+export { DeleteCasePkArgs } from "./DeleteCasePkArgs";
+export { DeleteManyCasePkArgs } from "./DeleteManyCasePkArgs";
+export { FindFirstCasePkArgs } from "./FindFirstCasePkArgs";
+export { FindManyCasePkArgs } from "./FindManyCasePkArgs";
+export { FindUniqueCasePkArgs } from "./FindUniqueCasePkArgs";
+export { UpdateCasePkArgs } from "./UpdateCasePkArgs";
+export { UpdateManyCasePkArgs } from "./UpdateManyCasePkArgs";
+export { UpsertCasePkArgs } from "./UpsertCasePkArgs";

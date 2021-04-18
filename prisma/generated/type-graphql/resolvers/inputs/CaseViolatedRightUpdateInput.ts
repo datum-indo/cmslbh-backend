@@ -1,0 +1,21 @@
+import * as TypeGraphQL from "type-graphql";
+import * as GraphQLScalars from "graphql-scalars";
+import { Prisma } from "@prisma/client";
+import { DecimalJSScalar } from "../../scalars";
+import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
+import { RenamedcaseUpdateOneWithoutViolatedrightsInput } from "../inputs/RenamedcaseUpdateOneWithoutViolatedrightsInput";
+
+@TypeGraphQL.InputType({
+  isAbstract: true
+})
+export class CaseViolatedRightUpdateInput {
+  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  kodeMt?: NullableStringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => RenamedcaseUpdateOneWithoutViolatedrightsInput, {
+    nullable: true
+  })
+  caseId?: RenamedcaseUpdateOneWithoutViolatedrightsInput | undefined;
+}

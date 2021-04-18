@@ -1,0 +1,10 @@
+export { AggregateLogRequestArgs } from "./AggregateLogRequestArgs";
+export { CreateLogRequestArgs } from "./CreateLogRequestArgs";
+export { DeleteLogRequestArgs } from "./DeleteLogRequestArgs";
+export { DeleteManyLogRequestArgs } from "./DeleteManyLogRequestArgs";
+export { FindFirstLogRequestArgs } from "./FindFirstLogRequestArgs";
+export { FindManyLogRequestArgs } from "./FindManyLogRequestArgs";
+export { FindUniqueLogRequestArgs } from "./FindUniqueLogRequestArgs";
+export { UpdateLogRequestArgs } from "./UpdateLogRequestArgs";
+export { UpdateManyLogRequestArgs } from "./UpdateManyLogRequestArgs";
+export { UpsertLogRequestArgs } from "./UpsertLogRequestArgs";
