@@ -11,9 +11,10 @@ import { AuthModule } from './auth/auth.module';
 import { MysqlService } from './mysql.service';
 import { join } from 'path';
 import { TypeGraphQLModule } from "typegraphql-nestjs";
-import * as crud from "../prisma/generated/type-graphql/resolvers/crud"
-import * as relations from "../prisma/generated/type-graphql/resolvers/relations"
+import * as crud from '@generated/type-graphql/resolvers/crud';
+import * as relations from '@generated/type-graphql/resolvers/relations';
 import { TestController } from './test/test.controller';
+import { PrismaService } from './prisma.service';
 interface Context {
   prisma: PrismaClient;
 }
@@ -37,8 +38,8 @@ const prisma = new PrismaClient();
     // ResolverModule,
     AuthModule,
   ],
-  controllers: [TestController],
-  providers: [AppService, ...RESOLVER
+  controllers: [TestController, AppController],
+  providers: [AppService, ...RESOLVER, PrismaService,MysqlService
   ],
 })
 // run first time to generate binding

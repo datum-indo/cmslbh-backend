@@ -7,6 +7,14 @@ type AffectedRowsOutput {
   count: Int!
 }
 
+type AggregateAnalisaFilter {
+  avg: AnalisaFilterAvgAggregate
+  count: AnalisaFilterCountAggregate
+  max: AnalisaFilterMaxAggregate
+  min: AnalisaFilterMinAggregate
+  sum: AnalisaFilterSumAggregate
+}
+
 type AggregateApplication {
   avg: ApplicationAvgAggregate
   count: ApplicationCountAggregate
@@ -323,6 +331,147 @@ type AggregateUserProfile {
   max: UserProfileMaxAggregate
   min: UserProfileMinAggregate
   sum: UserProfileSumAggregate
+}
+
+type AnalisaFilter {
+  field: String
+  fieldLabel: String
+  group: String
+  groupLabel: String
+  id: Int!
+  operator: String
+  operatorLabel: String
+  queryJson: JSON
+  source: String
+  type: String
+}
+
+type AnalisaFilterAvgAggregate {
+  id: Float!
+}
+
+type AnalisaFilterCountAggregate {
+  _all: Int!
+  field: Int
+  fieldLabel: Int
+  group: Int
+  groupLabel: Int
+  id: Int!
+  operator: Int
+  operatorLabel: Int
+  queryJson: Int
+  source: Int
+  type: Int
+}
+
+input AnalisaFilterCreateInput {
+  field: String
+  fieldLabel: String
+  group: String
+  groupLabel: String
+  operator: String
+  operatorLabel: String
+  queryJson: JSON
+  source: String
+  type: String
+}
+
+type AnalisaFilterMaxAggregate {
+  field: String
+  fieldLabel: String
+  group: String
+  groupLabel: String
+  id: Int!
+  operator: String
+  operatorLabel: String
+  source: String
+  type: String
+}
+
+type AnalisaFilterMinAggregate {
+  field: String
+  fieldLabel: String
+  group: String
+  groupLabel: String
+  id: Int!
+  operator: String
+  operatorLabel: String
+  source: String
+  type: String
+}
+
+input AnalisaFilterOrderByInput {
+  field: SortOrder
+  fieldLabel: SortOrder
+  group: SortOrder
+  groupLabel: SortOrder
+  id: SortOrder
+  operator: SortOrder
+  operatorLabel: SortOrder
+  queryJson: SortOrder
+  source: SortOrder
+  type: SortOrder
+}
+
+enum AnalisaFilterScalarFieldEnum {
+  field
+  fieldLabel
+  group
+  groupLabel
+  id
+  operator
+  operatorLabel
+  queryJson
+  source
+  type
+}
+
+type AnalisaFilterSumAggregate {
+  id: Int!
+}
+
+input AnalisaFilterUpdateInput {
+  field: NullableStringFieldUpdateOperationsInput
+  fieldLabel: NullableStringFieldUpdateOperationsInput
+  group: NullableStringFieldUpdateOperationsInput
+  groupLabel: NullableStringFieldUpdateOperationsInput
+  operator: NullableStringFieldUpdateOperationsInput
+  operatorLabel: NullableStringFieldUpdateOperationsInput
+  queryJson: JSON
+  source: NullableStringFieldUpdateOperationsInput
+  type: NullableStringFieldUpdateOperationsInput
+}
+
+input AnalisaFilterUpdateManyMutationInput {
+  field: NullableStringFieldUpdateOperationsInput
+  fieldLabel: NullableStringFieldUpdateOperationsInput
+  group: NullableStringFieldUpdateOperationsInput
+  groupLabel: NullableStringFieldUpdateOperationsInput
+  operator: NullableStringFieldUpdateOperationsInput
+  operatorLabel: NullableStringFieldUpdateOperationsInput
+  queryJson: JSON
+  source: NullableStringFieldUpdateOperationsInput
+  type: NullableStringFieldUpdateOperationsInput
+}
+
+input AnalisaFilterWhereInput {
+  AND: [AnalisaFilterWhereInput!]
+  field: StringNullableFilter
+  fieldLabel: StringNullableFilter
+  group: StringNullableFilter
+  groupLabel: StringNullableFilter
+  id: IntFilter
+  NOT: [AnalisaFilterWhereInput!]
+  operator: StringNullableFilter
+  operatorLabel: StringNullableFilter
+  OR: [AnalisaFilterWhereInput!]
+  queryJson: JsonNullableFilter
+  source: StringNullableFilter
+  type: StringNullableFilter
+}
+
+input AnalisaFilterWhereUniqueInput {
+  id: Int
 }
 
 type Application {
@@ -6331,6 +6480,16 @@ input IntNullableFilter {
   notIn: [Int!]
 }
 
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+input JsonNullableFilter {
+  equals: JSON
+  not: JSON
+}
+
 type LogRequest {
   application: Int
   applicationId: Application
@@ -7713,6 +7872,7 @@ input MtVocabWhereUniqueInput {
 }
 
 type Mutation {
+  createAnalisaFilter(data: AnalisaFilterCreateInput!): AnalisaFilter!
   createApplication(data: ApplicationCreateInput!): Application!
   createCaseCategory(data: CaseCategoryCreateInput!): CaseCategory!
   createCaseClassification(data: CaseClassificationCreateInput!): CaseClassification!
@@ -7753,6 +7913,7 @@ type Mutation {
   createSrcTemplate(data: SrcTemplateCreateInput!): SrcTemplate!
   createUser(data: UserCreateInput!): User!
   createUserProfile(data: UserProfileCreateInput!): UserProfile!
+  deleteAnalisaFilter(where: AnalisaFilterWhereUniqueInput!): AnalisaFilter
   deleteApplication(where: ApplicationWhereUniqueInput!): Application
   deleteCaseCategory(where: CaseCategoryWhereUniqueInput!): CaseCategory
   deleteCaseClassification(where: CaseClassificationWhereUniqueInput!): CaseClassification
@@ -7780,6 +7941,7 @@ type Mutation {
   deleteDataDictLocal(where: DataDictLocalWhereUniqueInput!): DataDictLocal
   deleteLogRequest(where: LogRequestWhereUniqueInput!): LogRequest
   deleteLogRequestApp(where: LogRequestAppWhereUniqueInput!): LogRequestApp
+  deleteManyAnalisaFilter(where: AnalisaFilterWhereInput): AffectedRowsOutput!
   deleteManyApplication(where: ApplicationWhereInput): AffectedRowsOutput!
   deleteManyCaseCategory(where: CaseCategoryWhereInput): AffectedRowsOutput!
   deleteManyCaseClassification(where: CaseClassificationWhereInput): AffectedRowsOutput!
@@ -7833,6 +7995,7 @@ type Mutation {
   deleteSrcTemplate(where: SrcTemplateWhereUniqueInput!): SrcTemplate
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUserProfile(where: UserProfileWhereUniqueInput!): UserProfile
+  updateAnalisaFilter(data: AnalisaFilterUpdateInput!, where: AnalisaFilterWhereUniqueInput!): AnalisaFilter
   updateApplication(data: ApplicationUpdateInput!, where: ApplicationWhereUniqueInput!): Application
   updateCaseCategory(data: CaseCategoryUpdateInput!, where: CaseCategoryWhereUniqueInput!): CaseCategory
   updateCaseClassification(data: CaseClassificationUpdateInput!, where: CaseClassificationWhereUniqueInput!): CaseClassification
@@ -7860,6 +8023,7 @@ type Mutation {
   updateDataDictLocal(data: DataDictLocalUpdateInput!, where: DataDictLocalWhereUniqueInput!): DataDictLocal
   updateLogRequest(data: LogRequestUpdateInput!, where: LogRequestWhereUniqueInput!): LogRequest
   updateLogRequestApp(data: LogRequestAppUpdateInput!, where: LogRequestAppWhereUniqueInput!): LogRequestApp
+  updateManyAnalisaFilter(data: AnalisaFilterUpdateManyMutationInput!, where: AnalisaFilterWhereInput): AffectedRowsOutput!
   updateManyApplication(data: ApplicationUpdateManyMutationInput!, where: ApplicationWhereInput): AffectedRowsOutput!
   updateManyCaseCategory(data: CaseCategoryUpdateManyMutationInput!, where: CaseCategoryWhereInput): AffectedRowsOutput!
   updateManyCaseClassification(data: CaseClassificationUpdateManyMutationInput!, where: CaseClassificationWhereInput): AffectedRowsOutput!
@@ -7913,6 +8077,7 @@ type Mutation {
   updateSrcTemplate(data: SrcTemplateUpdateInput!, where: SrcTemplateWhereUniqueInput!): SrcTemplate
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateUserProfile(data: UserProfileUpdateInput!, where: UserProfileWhereUniqueInput!): UserProfile
+  upsertAnalisaFilter(create: AnalisaFilterCreateInput!, update: AnalisaFilterUpdateInput!, where: AnalisaFilterWhereUniqueInput!): AnalisaFilter!
   upsertApplication(create: ApplicationCreateInput!, update: ApplicationUpdateInput!, where: ApplicationWhereUniqueInput!): Application!
   upsertCaseCategory(create: CaseCategoryCreateInput!, update: CaseCategoryUpdateInput!, where: CaseCategoryWhereUniqueInput!): CaseCategory!
   upsertCaseClassification(create: CaseClassificationCreateInput!, update: CaseClassificationUpdateInput!, where: CaseClassificationWhereUniqueInput!): CaseClassification!
@@ -9766,6 +9931,7 @@ input PersonWhereUniqueInput {
 }
 
 type Query {
+  aggregateAnalisaFilter(cursor: AnalisaFilterWhereUniqueInput, orderBy: [AnalisaFilterOrderByInput!], skip: Int, take: Int, where: AnalisaFilterWhereInput): AggregateAnalisaFilter!
   aggregateApplication(cursor: ApplicationWhereUniqueInput, orderBy: [ApplicationOrderByInput!], skip: Int, take: Int, where: ApplicationWhereInput): AggregateApplication!
   aggregateCaseCategory(cursor: CaseCategoryWhereUniqueInput, orderBy: [CaseCategoryOrderByInput!], skip: Int, take: Int, where: CaseCategoryWhereInput): AggregateCaseCategory!
   aggregateCaseClassification(cursor: CaseClassificationWhereUniqueInput, orderBy: [CaseClassificationOrderByInput!], skip: Int, take: Int, where: CaseClassificationWhereInput): AggregateCaseClassification!
@@ -9806,6 +9972,8 @@ type Query {
   aggregateSrcTemplate(cursor: SrcTemplateWhereUniqueInput, orderBy: [SrcTemplateOrderByInput!], skip: Int, take: Int, where: SrcTemplateWhereInput): AggregateSrcTemplate!
   aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
   aggregateUserProfile(cursor: UserProfileWhereUniqueInput, orderBy: [UserProfileOrderByInput!], skip: Int, take: Int, where: UserProfileWhereInput): AggregateUserProfile!
+  analisaFilter(where: AnalisaFilterWhereUniqueInput!): AnalisaFilter
+  analisaFilters(cursor: AnalisaFilterWhereUniqueInput, distinct: [AnalisaFilterScalarFieldEnum!], orderBy: [AnalisaFilterOrderByInput!], skip: Int, take: Int, where: AnalisaFilterWhereInput): [AnalisaFilter!]!
   application(where: ApplicationWhereUniqueInput!): Application
   applications(cursor: ApplicationWhereUniqueInput, distinct: [ApplicationScalarFieldEnum!], orderBy: [ApplicationOrderByInput!], skip: Int, take: Int, where: ApplicationWhereInput): [Application!]!
   caseCategories(cursor: CaseCategoryWhereUniqueInput, distinct: [CaseCategoryScalarFieldEnum!], orderBy: [CaseCategoryOrderByInput!], skip: Int, take: Int, where: CaseCategoryWhereInput): [CaseCategory!]!
@@ -9856,6 +10024,7 @@ type Query {
   dataDictLocal(where: DataDictLocalWhereUniqueInput!): DataDictLocal
   dataDictLocals(cursor: DataDictLocalWhereUniqueInput, distinct: [DataDictLocalScalarFieldEnum!], orderBy: [DataDictLocalOrderByInput!], skip: Int, take: Int, where: DataDictLocalWhereInput): [DataDictLocal!]!
   dataDicts(cursor: DataDictWhereUniqueInput, distinct: [DataDictScalarFieldEnum!], orderBy: [DataDictOrderByInput!], skip: Int, take: Int, where: DataDictWhereInput): [DataDict!]!
+  findFirstAnalisaFilter(cursor: AnalisaFilterWhereUniqueInput, distinct: [AnalisaFilterScalarFieldEnum!], orderBy: [AnalisaFilterOrderByInput!], skip: Int, take: Int, where: AnalisaFilterWhereInput): AnalisaFilter
   findFirstApplication(cursor: ApplicationWhereUniqueInput, distinct: [ApplicationScalarFieldEnum!], orderBy: [ApplicationOrderByInput!], skip: Int, take: Int, where: ApplicationWhereInput): Application
   findFirstCaseCategory(cursor: CaseCategoryWhereUniqueInput, distinct: [CaseCategoryScalarFieldEnum!], orderBy: [CaseCategoryOrderByInput!], skip: Int, take: Int, where: CaseCategoryWhereInput): CaseCategory
   findFirstCaseClassification(cursor: CaseClassificationWhereUniqueInput, distinct: [CaseClassificationScalarFieldEnum!], orderBy: [CaseClassificationOrderByInput!], skip: Int, take: Int, where: CaseClassificationWhereInput): CaseClassification

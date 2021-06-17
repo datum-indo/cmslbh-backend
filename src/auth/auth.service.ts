@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { UserResolver } from '../resolver/users.resolver';
 import { ReqToken } from './interfaces/req-token.interface';
-import { UserCrudResolver, UserRelationsResolver } from '../../prisma/generated/type-graphql';
+import { UserCrudResolver, UserRelationsResolver } from '@generated/type-graphql/';
 import { PrismaClient } from "@prisma/client";
 import { PrismaService } from '../resolverprisma/prisma.service';
 

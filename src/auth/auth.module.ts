@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { ResolverModule } from '../resolver/resolver.module';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { UserCrudResolver, UserRelationsResolver } from '../../prisma/generated/type-graphql';
+import { UserCrudResolver, UserRelationsResolver } from '@generated/type-graphql/';
 import { ResolverPrismaModule } from '../resolverprisma/resolverprisma.module';
 
 @Module({

@@ -1,1 +1,0 @@
-export { RolesTypeRoleArgs } from "./RolesTypeRoleArgs";

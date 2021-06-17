@@ -23,12 +23,13 @@ import { MTVocabResolver } from './resolver/mtvocab.resolver';
 import { MysqlService } from './mysql.service';
 import { json2csvAsync } from 'json-2-csv';
 import * as NodeGeocoder from 'node-geocoder';
+import { PrismaService } from './prisma.service';
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private mtVocabResolver: MTVocabResolver,
     private mysqlService: MysqlService,
+    private prismaService: PrismaService
   ) { }
 
   @Get()
@@ -69,74 +70,35 @@ export class AppController {
     res.sendFile(fileId, { root: 'files' });
   }
 
-  @Get('jsonMtvocab')
-  async jsonMtvocab(): Promise<any> {
-    // tslint:disable-next-line: no-angle-bracket-type-assertion
-    const a = <MtVocabWhereInput>{};
-    a.kode_list = <MtVocabGroupWhereInput>{ kode_list: 4 };
-    const dataUser = await this.mtVocabResolver.getMtVocabs(
-      { where: a },
-      ` {KODE
-      kode_induk
-      level
-      sembunyikan
-      teks
-      urutan
-    }`,
-    );
-
-    let arr = [];
-    let lvl0 = dataUser.filter(res => res.level === 0);
-    let lvl1 = dataUser.filter(res => res.level === 1);
-    let lvl2 = dataUser.filter(res => res.level === 2);
-    let lvl3 = dataUser.filter(res => res.level === 3);
-
-    for (let a of lvl0) {
-      let a1 = {
-        id: a.KODE,
-        text: a.teks,
-        iconCls: 'icon-blank',
-        children: [],
-      };
-      for (let b of lvl1) {
-        if (b.kode_induk === a.KODE) {
-          let b1 = {
-            id: b.KODE,
-            text: b.teks,
-            iconCls: 'icon-blank',
-            children: [],
-          };
-          a1.children.push(b1);
-
-          for (let c of lvl2) {
-            if (c.kode_induk === b.KODE) {
-              let c1 = {
-                id: c.KODE,
-                text: c.teks,
-                iconCls: 'icon-blank',
-                children: [],
-              };
-              b1.children.push(c1);
-
-              for (let d of lvl3) {
-                if (d.kode_induk === c.KODE) {
-                  let d1 = { id: d.KODE, text: d.teks, iconCls: 'icon-blank' };
-                  c1.children.push(d1);
-                }
-              }
-            }
-          }
-        }
-      }
-      arr.push(a1);
-    }
-    return arr;
-  }
-
   @Post('query')
   async queryAnalisa(@Body('query') query: string) {
     const result = await this.mysqlService.processQuery(query);
     // console.log(result);
+    if (!result) {
+      return [];
+    }
+    return result;
+  }
+
+  @Post('query-prisma')
+  async queryAnalisaPrisma(@Body('query') query: string) {
+    console.log(query)
+    const result = await this.prismaService.$queryRaw(query);
+    console.log(result);
+    if (!result) {
+      return [];
+    }
+    return result;
+  }
+
+  @Post('query/sebaran')
+  async querySebaranPrisma(@Body('query') query: string, @Body('template') templateName: string) {
+    const template = await this.prismaService.$queryRaw(`select template from src_template where name = '${templateName}'`)
+    if (!template) {
+      return [];
+    }
+    console.log(`${template[0].template} where ${query}`)
+    const result = await this.prismaService.$queryRaw(`${template[0].template} where ${query}`)
     if (!result) {
       return [];
     }
@@ -149,24 +111,15 @@ export class AppController {
     @Body('template') templateId: string,
     @Res() res,
   ) {
-    const template = await this.mysqlService.processQuery(
-      'select `template` from src_template where id=' + templateId,
-    );
-    // console.log(template);
+    const template = await this.prismaService.$queryRaw(`select template from src_template where id = '${templateId}'`)
     if (!template) {
       return [];
     }
-    const where = ' where ';
-    const result = await this.mysqlService.processQuery(
-      template[0].template + where + query,
-    );
-    // console.log(result);
+    const result = await this.prismaService.$queryRaw(`${template[0].template} where ${query}`)
     if (!result) {
       return [];
     }
-
     const csv = await json2csvAsync(result);
-    // console.log(csv);
     res.set('Content-Type', 'application/csv');
     res.set(
       'Content-Disposition',
@@ -231,8 +184,8 @@ export class AppController {
           ? param.clients[0].personId.namaLengkap
           : '',
       tempat_tgl_lahir: `${param.clients[0].personId.tmpLahir !== null
-          ? param.clients[0].personId.tmpLahir
-          : ''
+        ? param.clients[0].personId.tmpLahir
+        : ''
         } ${param.clients[0].personId.tglLahir !== null
           ? moment(param.clients[0].personId.tglLahir).format('DD-MM-YYYY')
           : ''
